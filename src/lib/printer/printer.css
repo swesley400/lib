@@ -1,0 +1,26 @@
+.page {
+  width: 210mm; /* A4 width in mm */
+  height: 297mm; /* A4 height in mm */
+  margin: 10mm;
+  padding: 20mm;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.pages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10mm;
+}
+
+.header, .footer {
+  width: 100%;
+}
+
+.body-paper {
+  flex: 1;
+  overflow: hidden;
+}
+
