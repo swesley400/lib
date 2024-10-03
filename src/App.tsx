@@ -1,17 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { GeneratePDF } from './lib/printer/printer'
+import './styles/app.css';
 import EditorWithTables from 'lib/template/generateHeader';
+import PDFDocumentBuilder from 'lib/printer/PDFDocumentBuilder';
 
 function App() {
   return (
     <>  
-    <EditorWithTables></EditorWithTables>
-    <GeneratePDF></GeneratePDF>
+      <EditorWithTables></EditorWithTables>
+      <PDFDocumentBuilder />
     </>
-  
- 
   );
 }
 
