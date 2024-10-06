@@ -1,3 +1,13 @@
+export interface ISubheaderField {
+  type: "text" | "number" | "date" | string;
+  name: string;
+  value: string | number | Date;
+}
+
+export interface IExamDataProps {
+  fields: ISubheaderField[];
+}
+
 export interface Report {
     header: {
       html: string;
@@ -7,6 +17,7 @@ export interface Report {
         altText?: string;  
         caption?: string;
       };
+      subheaderFields: ISubheaderField[];
     };
     body: {
       fields: Array<{

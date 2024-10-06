@@ -10,7 +10,44 @@ export const mockReport: Report = {
       layout: "RIGHT",
       altText: "Logo da Empresa",
       caption: "Relatório de Endoscopia - 2024"
-    }
+    },
+    subheaderFields: [
+      {
+        type: "text",
+        name: "Nome do Paciente",
+        value: "João da Silva"
+      },
+      {
+        type: "text",
+        name: "Data de Nascimento",
+        value: "1985-02-15"
+      },
+      {
+        type: "text",
+        name: "Sexo",
+        value: "Masculino"
+      },
+      {
+        type: "text",
+        name: "CPF",
+        value: "123.456.789-00"
+      },
+      {
+        type: "text",
+        name: "Endereço",
+        value: "Rua Brasil, Q 11, L6, Casa 3"
+      },
+      {
+        type: "text",
+        name: "CEP",
+        value: "75251-473"
+      },
+      {
+        type: "text",
+        name: "Telefone",
+        value: "62 992295634 / 62 3515-5634"
+      }
+    ]
   },
   body: {
     fields: [
