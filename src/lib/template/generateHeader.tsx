@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './styles.css';
+import { ClinicaImage } from 'interface/clinicaImage.interface';
 
 interface ImageOptions {
   url: string;
@@ -10,6 +11,10 @@ interface ImageOptions {
   caption?: string;
   width: number;
   height: number;
+}
+
+interface EditorComponente {
+  clinicImages: ClinicaImage[]
 }
 
 const modules = {
@@ -46,7 +51,7 @@ const formats = [
   'background',
 ];
 
-const EditorWithPreview: React.FC = () => {
+const EditorWithPreview: React.FC<EditorComponente> = (props) => {
   const [headerHtml, setHeaderHtml] = useState<string>('<h1>Meu Cabeçalho</h1>');
   const [imageOptions, setImageOptions] = useState<ImageOptions>({
     url: '',
@@ -54,17 +59,21 @@ const EditorWithPreview: React.FC = () => {
     width: 100,
     height: 100,
   });
-  
+
   const previewHtml = useRef<HTMLDivElement | null>(null);
 
   const [align, setAlign] = useState<'left' | 'center' | 'right'>('left');
   const [justify, setJustify] = useState<'left' | 'center' | 'right' | 'justify'>('left');
   const [textSize, setTextSize] = useState<number>(16);
-
+  const [clinicImages, setClinicImages] = useState<ClinicaImage[] | []>([])
   const handleHtmlChange = (value: string) => setHeaderHtml(value);
 
-  const handleImageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((event: React.ChangeEvent<any>) => {
+
     const { name, value } = event.target;
+
+    console.log(name, value);
+
     setImageOptions((prev) => ({
       ...prev,
       [name]: value,
@@ -98,7 +107,7 @@ const EditorWithPreview: React.FC = () => {
 
   const generatePreviewHtml = useCallback(() => {
     const { layout, url, altText, caption, width, height } = imageOptions;
-    const imageStyle = `width: ${width}px; height: ${height}px; margin: 0 10px; display: ${url === "" ? 'none': ""};`;
+    const imageStyle = `width: ${width}px; height: ${height}px; margin: 0 10px; display: ${url === "" ? 'none' : ""};`;
 
     // Ajustando o estilo de alinhamento e justificação
     const containerStyle = `
@@ -137,12 +146,12 @@ const EditorWithPreview: React.FC = () => {
   }, [imageOptions, headerHtml, align, justify, textSize]);
 
   const handleSave = useCallback(() => {
-    let html; 
-    
+    let html;
+
     if (previewHtml.current && previewHtml.current.outerHTML) {
       html = previewHtml.current.outerHTML
     }
-  
+
     const result = {
       headerHtml,
       imageOptions,
@@ -163,6 +172,10 @@ const EditorWithPreview: React.FC = () => {
     }
   }, [generatePreviewHtml]);
 
+  useEffect(() => {
+    setClinicImages(props.clinicImages);
+  }, [props.clinicImages])
+
   return (
     <div className="editor-container">
       <h2 className="editor-title">Editor de Cabeçalho</h2>
@@ -175,16 +188,17 @@ const EditorWithPreview: React.FC = () => {
       />
       {/* Formulário para edição da imagem e do conteúdo */}
       <div className="form-group">
-        <label>
-          URL da Imagem:
-          <input
-            type="text"
-            name="url"
-            value={imageOptions.url}
-            onChange={handleImageChange}
-            className="form-input"
-          />
-        </label>
+
+        <label htmlFor="image-select">Selecione a imagem:</label>
+
+        <select name="url" id="image-select" onChange={handleImageChange} value={imageOptions.url}>
+          <option value="" disabled selected>Selecione uma imagem...</option>
+          {clinicImages.map((image) => (
+            <option key={image.imageId} value={image.imageBase64}>
+              {image.imageName}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="form-group">
         <label>
