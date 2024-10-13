@@ -1,6 +1,6 @@
 import { FaSpinner, FaSave } from 'react-icons/fa';
 
-interface PreviewUploadProps {
+interface IPreviewUploadProps {
     preview: string;
     fileName: string;
     onSave: Function;
@@ -9,7 +9,7 @@ interface PreviewUploadProps {
     progress?: number;  
 }
 
-export const PreviewUpload = ({ preview, fileName, onSave, isLoading, fileSize, progress }: PreviewUploadProps) => {
+export const PreviewUpload = ({ preview, fileName, onSave, isLoading, fileSize, progress }: IPreviewUploadProps) => {
     return (
         <div className="mt-4 flex items-center justify-start w-full bg-gray-300 rounded p-2 border-1">
 
