@@ -1,19 +1,17 @@
 import { Report } from 'interface/report.interface';
+import { FieldController } from 'components/FieldControler';
 
-export function ReportBody({ report }: { report: Report }) {
+export function ReportBody({ report, isPrint }: { report: Report, isPrint: boolean }) {
   return (
     <>
       {report.body.fields && report.body.fields.map((field: any, index) => (
-        <div key={index}>
-          <strong>{field.name}:</strong> {field.value}
-        </div>
+        <FieldController key={index} label={field.name}  name={field.name} initialValue={field.value} type={field.type} isPrint={isPrint}/>
       ))}
       {report.body.images && report.body.images.map((image, index) => (
         <div key={index}>
           <img
             src={image.url}
             alt={image.altText}
-            style={{ float: image.layout.toLowerCase() as any, margin: '10px' }}
           />
           <div>{image.caption}</div>
         </div>
