@@ -1,3 +1,11 @@
+.classA4 {
+  width: 210mm; 
+  margin: 10mm;
+  padding: 20mm;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background: white;  
+}
+
 .page {
   width: 210mm; /* A4 width in mm */
   height: 297mm; /* A4 height in mm */
