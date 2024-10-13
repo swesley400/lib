@@ -2,9 +2,9 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './styles.css';
-import { ClinicaImage } from 'interface/clinicaImage.interface';
+import { IClinicaImage } from 'interface/clinicaImage.interface';
 
-interface ImageOptions {
+interface IImageOptions {
   url: string;
   layout: 'RIGHT' | 'LEFT' | 'UP' | 'DOWN';
   altText?: string;
@@ -14,7 +14,7 @@ interface ImageOptions {
 }
 
 interface EditorComponente {
-  clinicImages: ClinicaImage[]
+  clinicImages: IClinicaImage[]
 }
 
 const modules = {
@@ -53,7 +53,7 @@ const formats = [
 
 const EditorWithPreview: React.FC<EditorComponente> = (props) => {
   const [headerHtml, setHeaderHtml] = useState<string>('<h1>Meu Cabeçalho</h1>');
-  const [imageOptions, setImageOptions] = useState<ImageOptions>({
+  const [imageOptions, setImageOptions] = useState<IImageOptions>({
     url: '',
     layout: 'RIGHT',
     width: 100,
@@ -65,7 +65,7 @@ const EditorWithPreview: React.FC<EditorComponente> = (props) => {
   const [align, setAlign] = useState<'left' | 'center' | 'right'>('left');
   const [justify, setJustify] = useState<'left' | 'center' | 'right' | 'justify'>('left');
   const [textSize, setTextSize] = useState<number>(16);
-  const [clinicImages, setClinicImages] = useState<ClinicaImage[] | []>([])
+  const [clinicImages, setClinicImages] = useState<IClinicaImage[] | []>([])
   const handleHtmlChange = (value: string) => setHeaderHtml(value);
 
   const handleImageChange = useCallback((event: React.ChangeEvent<any>) => {
@@ -83,7 +83,7 @@ const EditorWithPreview: React.FC<EditorComponente> = (props) => {
   const handleLayoutChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     setImageOptions((prev) => ({
       ...prev,
-      layout: event.target.value as ImageOptions['layout'],
+      layout: event.target.value as IImageOptions['layout'],
     }));
   }, []);
 

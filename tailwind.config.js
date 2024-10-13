@@ -2,8 +2,7 @@
 module.exports = {
   
   content: [
-    "./src/components/ImageUpload.tsx", // Inclui todos os arquivos JS, JSX, TS e TSX
-    "./src/components/imagePreviewUpload.tsx"
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   corePlugins: {
     preflight: false,

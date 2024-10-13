@@ -1,13 +1,13 @@
 import { useState, useRef } from "react";
-import { PreviewUpload } from "./imagePreviewUpload";
+import { PreviewUpload } from "./ImagePreviewUpload";
 
-interface ImageUploadComponentProps {
-    onSave: (imageBase64: string) => void;
+interface IImageUploadComponentProps {
+    onSave: (imageBase64: string) => string;
     imageUrl?: string;
     isLoading?: boolean;
 }
 
-export const ImageUploadComponent = ({ onSave, imageUrl, isLoading: parentLoading }: ImageUploadComponentProps) => {
+export const ImageUploadComponent = ({ onSave, imageUrl, isLoading: parentLoading }: IImageUploadComponentProps) => {
     const [preview, setPreview] = useState<string | null>(imageUrl || null);
     const [fileName, setFileName] = useState<string | null>(null);
     const [fileSize, setFileSize] = useState<number | null>(null);
