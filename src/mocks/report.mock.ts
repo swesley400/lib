@@ -12,38 +12,29 @@ export const mockReport: Report = {
   },
   body: {
     fields: [
+
       {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
+        type: "Text",
         name: "Procedimento",
         value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
       },
       {
-        type: "text",
+        type: "Label",
+        name: "Biopsia",
+        value: ""
+      },
+      {
+        type: "CheckBox",
+        name: "Sim",
+        value: false
+      },
+      {
+        type: "CheckBox",
+        name: "Nao",
+        value: true
+      },
+      {
+        type: "Text",
         name: "Achados",
         value: `
           Foram observados os seguintes achados durante o exame:
@@ -53,14 +44,14 @@ export const mockReport: Report = {
         `
       },
       {
-        type: "text",
+        type: "Text",
         name: "Conclusão",
         value: `
           A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
         `
       },
       {
-        type: "text",
+        type: "Text",
         name: "Recomendações",
         value: `
           1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
@@ -68,377 +59,16 @@ export const mockReport: Report = {
           3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
         `
       },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `
-      },
-      {
-        type: "text",
-        name: "Recomendações",
-        value: `
-          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
-          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
-          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `
-      },
-      {
-        type: "text",
-        name: "Recomendações",
-        value: `
-          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
-          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
-          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `
-      },
-      {
-        type: "text",
-        name: "Recomendações",
-        value: `
-          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
-          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
-          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `
-      },
-      {
-        type: "text",
-        name: "Recomendações",
-        value: `
-          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
-          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
-          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
-        `
-      },
-      {
-        type: "text",
-        name: "Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data da Exame",
-        value: "2024-09-07"
-      },
-      {
-        type: "text",
-        name: "Médico Responsável",
-        value: "Dr. Rafael Krescmer Junior"
-      },
-      {
-        type: "text",
-        name: "Tipo de Exame",
-        value: "Endoscopia Digestiva Alta"
-      },
-      {
-        type: "text",
-        name: "Indicação",
-        value: "Paciente apresenta sintomas de dor abdominal e dificuldade para engolir."
-      },
-      {
-        type: "text",
-        name: "Procedimento",
-        value: "Endoscopia digestiva alta realizada para avaliar a presença de lesões no esôfago, estômago e duodeno. Foi utilizada sedação leve e o exame durou aproximadamente 20 minutos."
-      },
-      {
-        type: "text",
-        name: "Achados",
-        value: `
-          Foram observados os seguintes achados durante o exame:
-          1. **Esôfago**: Presença de leve esofagite erosiva. As lesões são superficiais e limitadas à mucosa.
-          2. **Estômago**: Presença de gastrite superficial com áreas de eritema. Não foram encontrados sinais de úlcera ou tumor.
-          3. **Duodeno**: Observado padrão normal, sem evidências de lesões ou anormalidades.
-        `
-      },
-      {
-        type: "text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `
-      },
-      {
-        type: "text",
-        name: "Recomendações",
-        value: `
-          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
-          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
-          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
-        `
-      }
     ],
+    layout: "RIGHT",
     images: [
       {
-        url: "https://example.com/endoscopy-image.jpg",
-        layout: "LEFT",
+        url: "https://www.saudebemestar.pt/media/87054/estomago.jpg",
         altText: "Imagem do Exame",
         caption: "Imagem capturada durante o exame endoscópico"
       },
       {
-        url: "https://example.com/analysis-chart.jpg",
-        layout: "RIGHT",
+        url: "https://www.saudebemestar.pt/media/87054/estomago.jpg",
         altText: "Gráfico de Análise",
         caption: "Gráfico demonstrando a gravidade das alterações encontradas"
       }
