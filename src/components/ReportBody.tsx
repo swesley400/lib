@@ -12,6 +12,7 @@ export function ReportBody({ report, isPrint }: { report: Report, isPrint: boole
           <img
             src={image.url}
             alt={image.altText}
+            crossOrigin="anonymous"
           />
           <div>{image.caption}</div>
         </div>

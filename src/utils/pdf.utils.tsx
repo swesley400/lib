@@ -5,6 +5,7 @@ import { mockReport } from "mocks/report.mock";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+
 export function calculatePages(container: HTMLDivElement): JSX.Element[] {
   const a4WidthPt = 595;
   const a4HeightPt = 842;
@@ -74,15 +75,18 @@ export function handleGeneratePDF() {
 
   if (pagesContainer) {
     const pageElements = pagesContainer.querySelectorAll(".page");
-
+   
     pageElements.forEach((page, index) => {
       promises.push(
-        html2canvas(page as HTMLElement, { scale: 2 }).then((canvas) => {
+        html2canvas(page as HTMLElement, {
+          scale: 2,
+          useCORS: true
+        }).then((canvas) => {
           const imgData = canvas.toDataURL("image/png");
           const imgWidth = a4Width;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
           let positionY = imgHeight < a4Height ? (a4Height - imgHeight) / 2 : 0;
-
+    
           if (index === 0) {
             pdf.addImage(imgData, "PNG", 0, positionY, imgWidth, imgHeight);
           } else {

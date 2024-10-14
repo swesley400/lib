@@ -63,12 +63,12 @@ export const mockReport: Report = {
     layout: "RIGHT",
     images: [
       {
-        url: "https://www.saudebemestar.pt/media/87054/estomago.jpg",
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
         altText: "Imagem do Exame",
         caption: "Imagem capturada durante o exame endoscópico"
       },
       {
-        url: "https://www.saudebemestar.pt/media/87054/estomago.jpg",
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
         altText: "Gráfico de Análise",
         caption: "Gráfico demonstrando a gravidade das alterações encontradas"
       }
