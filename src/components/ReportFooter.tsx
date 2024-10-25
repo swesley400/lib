@@ -10,5 +10,5 @@ export function ReportFooter({ report }: { report: Report }) {
 
 export function getFooterHeight(): number {
   const footer = document.querySelector(".footer");
-  return footer ? footer.getBoundingClientRect().height : 50; // Default to 50 if not found
+  return footer ? Math.min(footer.getBoundingClientRect().height, 113.39) : 113.39; // 4 cm em pontos
 }

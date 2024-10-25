@@ -45,8 +45,8 @@ const TinyMCEEditor: React.FC<ITinyMCEEditorProps> = ({ initialValue, onEditorCh
                 language: 'pt_BR', 
                 plugins: [
                     'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                    'insertdatetime', 'media', 'table', 'wordcount'
+                    'anchor', 'searchreplace', 'visualblocks',
+                    'insertdatetime', 'media'
                 ],
                 toolbar: 'undo redo | blocks | ' +
                 'bold italic backcolor | alignleft aligncenter ' +

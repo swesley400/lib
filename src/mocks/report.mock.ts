@@ -59,14 +59,35 @@ export const mockReport: Report = {
           3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
         `
       },
+      {
+        type: "Line",
+        name: "Recomendações",
+        value: `
+          1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
+          2. **Dieta**: Adotar uma dieta leve, evitando alimentos irritantes e bebidas alcoólicas.
+          3. **Acompanhamento**: Reavaliar o paciente em 6 meses para monitorar a evolução e eficácia do tratamento.
+        `
+      },
     ],
-    layout: "RIGHT",
+    layout: "LEFT",
     images: [
       {
         url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
         altText: "Imagem do Exame",
         caption: "Imagem capturada durante o exame endoscópico"
       },
+      {
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
+        altText: "Gráfico de Análise",
+        caption: "Gráfico demonstrando a gravidade das alterações encontradas"
+      }
+      ,
+      {
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
+        altText: "Gráfico de Análise",
+        caption: "Gráfico demonstrando a gravidade das alterações encontradas"
+      }
+      ,
       {
         url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
         altText: "Gráfico de Análise",

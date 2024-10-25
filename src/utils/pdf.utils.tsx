@@ -4,65 +4,122 @@ import { ReportPage } from "components/ReportPage";
 import { mockReport } from "mocks/report.mock";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import React from 'react';
 
 export function calculatePages(container: HTMLDivElement): JSX.Element[] {
-  const a4WidthPt = 595;
-  const a4HeightPt = 842;
+  const result: JSX.Element[] = [];
+
+  const tempDiv = document.createElement('div');
+  tempDiv.style.height = '297mm';
+  tempDiv.style.width = '210mm'; 
+  tempDiv.style.visibility = 'hidden';
+  document.body.appendChild(tempDiv);
+  const pageHeightPx = tempDiv.offsetHeight;
+  const pageWidthPx = tempDiv.offsetWidth;
+  document.body.removeChild(tempDiv);
 
   const headerHeightPt = getHeaderHeight();
-  const footerHeightPt = getFooterHeight();
-  const contentAreaHeightPt = a4HeightPt - headerHeightPt - footerHeightPt;
+  const footerHeightPt = getFooterHeight(); 
 
-  const result: JSX.Element[] = [];
-  const contentChildren = Array.from(container.children);
-  let currentContent: JSX.Element[] = [];
-  let contentHeight = 0;
+  // Converte as alturas de pontos para pixels
+  const headerHeightPx = headerHeightPt * 1.333; 
+  const footerHeightPx = footerHeightPt * 1.333;
 
-  contentChildren.forEach((child: Element) => {
-    const childElement = child as HTMLElement;
-    const tempDiv = document.createElement("div");
-    tempDiv.style.visibility = "hidden";
-    tempDiv.style.position = "absolute";
-    tempDiv.style.width = `${a4WidthPt}px`;
-    tempDiv.innerHTML = childElement.innerHTML;
-    document.body.appendChild(tempDiv);
+  const usablePageHeightPx = pageHeightPx - headerHeightPx - footerHeightPx;
 
-    const childHeightPt = tempDiv.scrollHeight;
-    document.body.removeChild(tempDiv);
+  let currentPageContent = document.createElement('div');
+  currentPageContent.style.width = `${pageWidthPx}px`;
+  currentPageContent.style.position = 'relative';
 
-    if (contentHeight + childHeightPt > contentAreaHeightPt) {
-      result.push(
-        <ReportPage
-          key={result.length}
-          report={mockReport}
-          content={currentContent}
-        />
+  let currentPageHeight = 0;
+  const pages: JSX.Element[] = [];
+
+  const children = Array.from(container.children);
+
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i] as HTMLElement;
+    const childClone = child.cloneNode(true) as HTMLElement;
+
+    childClone.style.visibility = 'hidden';
+    childClone.style.position = 'absolute';
+    childClone.style.width = `${container.offsetWidth}px`;
+    document.body.appendChild(childClone);
+    const childHeight = childClone.offsetHeight;
+    document.body.removeChild(childClone);
+
+    if (currentPageHeight + childHeight <= usablePageHeightPx) {
+      currentPageContent.appendChild(child.cloneNode(true));
+      currentPageHeight += childHeight;
+    } else {
+      const reactElement = (
+        <div
+          key={pages.length}
+          style={{
+            width: `${pageWidthPx}px`,
+            height: `${pageHeightPx}px`,
+            overflow: 'hidden',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              left: '0',
+              width: '100%',
+            }}
+            dangerouslySetInnerHTML={{ __html: currentPageContent.innerHTML }}
+          />
+        </div>
       );
-      currentContent = [];
-      contentHeight = 0;
+
+      pages.push(
+        <ReportPage key={pages.length} report={mockReport} content={[reactElement]} />
+      );
+
+      currentPageContent = document.createElement('div');
+      currentPageContent.style.width = `${pageWidthPx}px`;
+      currentPageContent.style.position = 'relative';
+      currentPageHeight = 0;
+
+      if (childHeight <= usablePageHeightPx) {
+        // Adiciona o elemento à nova página
+        currentPageContent.appendChild(child.cloneNode(true));
+        currentPageHeight += childHeight;
+      } else {
+        currentPageContent.appendChild(child.cloneNode(true));
+        currentPageHeight += childHeight;
+      }
     }
+  }
 
-    currentContent.push(
+  if (currentPageContent.children.length > 0) {
+    const reactElement = (
       <div
-        key={currentContent.length}
-        dangerouslySetInnerHTML={{ __html: childElement.innerHTML }}
-      />
+        key={pages.length}
+        style={{
+          width: `${pageWidthPx}px`,
+          height: `${pageHeightPx}px`,
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: '0',
+            width: '100%',
+          }}
+          dangerouslySetInnerHTML={{ __html: currentPageContent.innerHTML }}
+        />
+      </div>
     );
-    contentHeight += childHeightPt;
-  });
 
-  if (currentContent.length > 0) {
-    result.push(
-      <ReportPage
-        key={result.length}
-        report={mockReport}
-        content={currentContent}
-      />
+    pages.push(
+      <ReportPage key={pages.length} report={mockReport} content={[reactElement]} />
     );
   }
 
-  return result;
+  return pages;
 }
 
 export function handleGeneratePDF() {
