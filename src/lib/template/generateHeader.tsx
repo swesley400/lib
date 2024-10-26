@@ -119,7 +119,7 @@ const EditorWithPreview: React.FC<EditorComponente> = (props) => {
       gap: 10px;
     `;
 
-    const imageHtml = `<img src="${url}" alt="${altText || 'Imagem'}" style="${imageStyle}" />`;
+    const imageHtml = `<img src="${url}" alt="${altText || 'Imagem'}" style="${imageStyle}"  crossorigin="anonymous" />`;
 
     let imagePositionHtml = '';
     switch (layout) {
