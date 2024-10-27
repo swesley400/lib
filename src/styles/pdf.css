@@ -1,14 +1,14 @@
+/* styles/pdf.css */
+
+/* Definir a largura para o tamanho A4 */
 .classA4 {
-  width: 210mm; 
-  margin: 10mm;
-  padding: 20mm;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  background: white;  
+  width: 210mm;
+  margin: 0 auto;
 }
 
+/* Controlar quebras de página */
 .page {
   width: 210mm; /* A4 width in mm */
-  height: 297mm; /* A4 height in mm */
   margin: 10mm;
   padding: 20mm;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -17,18 +17,24 @@
   flex-direction: column;
 }
 
-.pages-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10mm;
+.avoid-page-break {
+  page-break-inside: avoid;
 }
 
-.header, .footer {
-  width: 100%;
+.page-break-before {
+  page-break-before: always;
 }
 
-.body-paper {
-  flex: 1;
-  overflow: hidden;
+.page-break-after {
+  page-break-after: always;
 }
 
+
+@media print {
+  body {
+    margin: 0;
+  }
+  .classA4 {
+    width: 210mm;
+  }
+}

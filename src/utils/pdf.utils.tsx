@@ -73,7 +73,7 @@ export function calculatePages(container: HTMLDivElement): JSX.Element[] {
       );
 
       pages.push(
-        <ReportPage key={pages.length} report={mockReport} content={[reactElement]} />
+        <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
       );
 
       currentPageContent = document.createElement('div');
@@ -115,7 +115,7 @@ export function calculatePages(container: HTMLDivElement): JSX.Element[] {
     );
 
     pages.push(
-      <ReportPage key={pages.length} report={mockReport} content={[reactElement]} />
+      <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
     );
   }
 
@@ -157,5 +157,26 @@ export function handleGeneratePDF() {
     Promise.all(promises).then(() => {
       pdf.save("report.pdf");
     });
+  }
+}
+
+
+export async function convertImageToBase64(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.error("Erro ao buscar a imagem:", response.statusText);
+      return null;
+    }
+    const blob = await response.blob();
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error("Erro ao converter imagem para Base64:", error);
+    return null;
   }
 }
