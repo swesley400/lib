@@ -3,7 +3,7 @@ import EditorWithTables from 'lib/template/generateHeader';
 import PDFDocumentBuilder from 'lib/printer/PDFDocumentBuilder';
 import { ImageUploadComponent } from 'components/ImageUpload';
 import { IClinicaImage } from 'interface/clinicaImage.interface';
-import { FieldController } from 'components/FieldControler';
+import { FieldController } from 'components/FieldController';
 
 function App() {
 

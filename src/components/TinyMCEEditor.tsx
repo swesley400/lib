@@ -1,71 +1,72 @@
-import React, { useEffect, useRef } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+// src/components/QuillEditor.tsx
 
-interface ITinyMCEEditorProps {
-    initialValue: string;
-    onEditorChange: (content: string) => void;
+import React, { useEffect, useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Importa o estilo do Quill
+
+// Importar a extensão das fontes
+import 'quillFonts'; // Ajuste o caminho conforme a localização do arquivo quillFonts.ts
+
+interface IQuillEditorProps {
+    initialValue: string; // O valor inicial deve ser uma string
+    onEditorChange: (content: string) => void; // Chama esta função ao mudar o conteúdo
 }
 
-const TinyMCEEditor: React.FC<ITinyMCEEditorProps> = ({ initialValue, onEditorChange }) => {
-    const editorRef = useRef<any>(null);
+const QuillEditor: React.FC<IQuillEditorProps> & {
+    modules: object; // Define o tipo de modules
+    formats: string[]; // Define o tipo de formats
+} = ({ initialValue, onEditorChange }) => {
+    const [value, setValue] = useState<string>(initialValue); // Armazena o valor do editor
 
     useEffect(() => {
-        if (editorRef.current) {
-            editorRef.current.setContent(initialValue);
-            adjustHeight();
-        }
+        setValue(initialValue); // Atualiza o valor se o initialValue mudar
     }, [initialValue]);
 
-    const adjustHeight = () => {
-        if (editorRef.current) {
-            const contentHeight = editorRef.current.getBody().scrollHeight; 
-            editorRef.current.getContainer().style.height = `${Math.max(contentHeight, 300)}px`; // Altura mínima de 300px
-        }
-    };
-
-    const handleEditorChange = (content: string) => {
-        console.log(content);
-        onEditorChange(content);
-        adjustHeight();
+    const handleChange = (content: string) => {
+        setValue(content);
+        onEditorChange(content); // Chama a função do pai com o novo conteúdo
     };
 
     return (
-        <Editor
-            apiKey={"wnrw1njq9i3f1r42mqaklg55ffghf7ihzsa3sumht3y8wpaj"}
-            onInit={(evt: any, editor: any) => {
-                editorRef.current = editor;
-                adjustHeight();
-            }}
-            initialValue={initialValue}
-            init={{
-                height: 300,
-                menubar: true, 
-                statusbar: false, 
-                branding: false,
-                language: 'pt_BR', 
-                plugins: [
-                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                    'anchor', 'searchreplace', 'visualblocks',
-                    'insertdatetime', 'media'
-                ],
-                toolbar: 'undo redo | blocks | ' +
-                'bold italic backcolor | alignleft aligncenter ' +
-                'alignright alignjustify | bullist numlist outdent indent | ' +
-                'removeformat | help',
-                table_default_attributes: {
-                    border: '1',
-                    cellpadding: '5',
-                    cellspacing: '0',
-                },
-                table_default_styles: {
-                    width: '100%',
-                    borderCollapse: 'collapse',
-                },
-                content_style: "table { border-collapse: collapse; } td, th { border: 1px solid black; padding: 5px; }",
-            }}
-            onEditorChange={handleEditorChange}
+        <ReactQuill
+            value={value}
+            onChange={handleChange} // Atualiza o estado e chama a função de callback
+            modules={QuillEditor.modules} // Configurações do Quill
+            formats={QuillEditor.formats} // Formatos suportados
+            style={{ minHeight: '300px', border: '1px solid #ddd', padding: '10px' }} // Estilos do editor
         />
     );
 };
 
-export default TinyMCEEditor;
+// Atualizar a barra de ferramentas para incluir a seleção de fontes
+QuillEditor.modules = {
+    toolbar: [
+        ['bold', 'italic', 'underline', 'strike'], // Estilos de texto
+        ['blockquote', 'code-block'], // Blocos
+        ['link', 'image', 'video'], // Mídia
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }], // Listas
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }], // Cabeçalhos
+        [{ 'size': ['small', false, 'large', 'huge'] }], // Tamanhos de texto
+        [{ 'color': [] }, { 'background': [] }], // Cores de texto e fundo
+        ['clean'], // Limpar formatação
+    ],
+};
+
+QuillEditor.formats = [
+    'font',
+    'header',
+    'size',
+    'list',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'align',
+    'link',
+    'image',
+    'video',
+    'color',
+    'background',
+];
+
+export default QuillEditor;
