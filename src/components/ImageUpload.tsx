@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { PreviewUpload } from "./ImagePreviewUpload";
+import { PreviewUpload } from "./ImagePreviewUploadComponent";
 
 interface IImageUploadComponentProps {
     onSave: (imageBase64: string) => string;
