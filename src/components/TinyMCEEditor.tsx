@@ -52,6 +52,8 @@ QuillEditor.modules = {
     ],
 };
 
+
+
 QuillEditor.formats = [
     'font',
     'header',

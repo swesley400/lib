@@ -8,15 +8,21 @@ import { FieldController } from 'components/FieldController';
 function App() {
 
   const clinicaImages: IClinicaImage[]  = [{
-    imageName: "Logo",
-    imageBase64: "",
+    imageName: "Logo 1",
+    imageBase64: "https://wes-videos.s3.us-east-2.amazonaws.com/n-design-de-logotipo-colorido-gradiente-inicial_343694-1755+(1).png",
     imageId: 1
-  }];
+  }, 
+    {
+      imageName: "Logo 2",
+      imageBase64: "https://wes-videos.s3.us-east-2.amazonaws.com/n-design-de-logotipo-colorido-gradiente-inicial_343694-1755+(1).png",
+      imageId: 2
+    }
+  ];
 
   return (
     <> 
       {/* Exemplos de uso de nossos components */}
-      {/* <EditorWithTables clinicImages={clinicaImages} />       */}
+      <EditorWithTables clinicImages={clinicaImages} />      
       <PDFDocumentBuilder></PDFDocumentBuilder>
       {/* <ImageUploadComponent onSave={(base64) => { return base64}}/>   */}
       {/* <FieldController key={1} label={"Teste"}  name={"TEste"} initialValue={"Teste"} type={"Text"} isPrint={false}/>

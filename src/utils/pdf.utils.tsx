@@ -164,6 +164,7 @@ export function handleGeneratePDF() {
 export async function convertImageToBase64(url: string): Promise<string | null> {
   try {
     const response = await fetch(url);
+
     if (!response.ok) {
       console.error("Erro ao buscar a imagem:", response.statusText);
       return null;

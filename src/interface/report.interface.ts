@@ -1,12 +1,19 @@
 export interface Report {
     header: {
-      html: string;
-      img?: {
+      editorHtml: string,
+      html?: string;
+      imageOptions: {
         url: string;
         layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
+        width: string | number;
+        height: string | number;
         altText?: string;  
         caption?: string;
       };
+      textSize: number,
+      align: string
+      justify: string
+      contextHtml: string
     };
     body: {
       layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
@@ -24,13 +31,20 @@ export interface Report {
       }>;
     };
     footer: {
-      html: string;
-      img?: {
+      editorHtml: string,
+      html?: string;
+      imageOptions: {
         url: string;
         layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
-        altText?: string;
+        width: string | number;
+        height:string | number;
+        altText?: string;  
         caption?: string;
       };
+      textSize: number,
+      align: string
+      justify: string
+      contextHtml: string
     };
 }
   

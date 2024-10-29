@@ -4,8 +4,9 @@ import { Report } from 'interface/report.interface';
 import htmlToPdfmake from 'html-to-pdfmake';
 import { convertImageToBase64 } from 'utils/pdf.utils';
 import ReactDOM from 'react-dom';
-import { ReportHeader } from 'components/ReportHeader';
+import { ReportHeader, createPdfHeader } from 'components/ReportHeader';
 import html2canvas from 'html2canvas';
+import { createPdfFooter } from 'components/ReportFooter';
 
 // Interfaces para os tipos de dados
 interface Field {
@@ -43,7 +44,7 @@ export async function ReportBodyPDFMake({
   const header = await generateHeader(report);
 
   // Gerar Rodapé
-  const footer = generateFooter();
+  const footer = await generateFooter(report);
 
   // Processar conteúdo baseado no layout
   switch (layout) {
@@ -237,32 +238,10 @@ function splitImagesIntoRows(images: Image[], imagesPerRow: number) {
 
 // Função para gerar o cabeçalho
 async function generateHeader(report: Report) {
-  const headerElement = document.createElement('div');
-  document.body.appendChild(headerElement);
-
-  ReactDOM.render(<ReportHeader report={report} />, headerElement);
-
-  const canvas = await html2canvas(headerElement);
-  const imgData = canvas.toDataURL('image/png');
-
-  document.body.removeChild(headerElement);
-
-  return {
-    image: imgData,
-    width: 595, // Largura total de uma página A4
-    height: 113.39, // Altura do cabeçalho em pontos (4 cm)
-    alignment: 'center',
-    margin: [40, 20, 40, 0],
-  };
+  return createPdfHeader(report.header)
 }
 
 // Função para gerar o rodapé
-function generateFooter() {
-  return {
-    margin: [40, 0, 40, 20],
-    columns: [
-      { text: 'Left part', fontSize: 10 },
-      { text: 'Right part', alignment: 'right', fontSize: 10 }
-    ],
-  };
+async function generateFooter(report: Report) {
+  return await createPdfFooter(report.footer);
 }
