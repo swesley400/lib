@@ -95,12 +95,66 @@ function processFields(fields: Field[], fieldValues: { [key: string]: any }) {
     switch (field.type) {
       case 'CheckBox':
         return {
-          text: `${fieldTitle}: ${fieldValue ? '[x]' : '[ ]'}`,
+          columns: [
+            {
+              width: 15,
+              canvas: [
+                // Quadrado do checkbox
+                {
+                  type: 'rect',
+                  x: 0,
+                  y: 0,
+                  w: 12,
+                  h: 12,
+                  r: 2, // raio para cantos arredondados
+                  lineWidth: 1,
+                  lineColor: '#4A90E2',
+                  color: fieldValue ? '#4A90E2' : '#E6F2FA',
+                },
+                // Marca do checkbox (apenas se marcado)
+                ...(fieldValue
+                  ? [
+                      {
+                        type: 'polyline',
+                        lineWidth: 1.5,
+                        closePath: false,
+                        points: [
+                          { x: 2, y: 6 },
+                          { x: 5, y: 9 },
+                          { x: 10, y: 2 },
+                        ],
+                        lineColor: '#FFFFFF',
+                      },
+                    ]
+                  : []),
+              ],
+            },
+            {
+              text: fieldTitle,
+              margin: [5, 0, 0, 0],
+              alignment: 'left',
+            },
+          ],
           margin: [0, 5],
         };
       case 'Text':
         const htmlContent = `<strong>${fieldTitle}:</strong> ${fieldValue}`;
         return htmlToPdfmake(htmlContent);
+      case 'Line':
+        return {
+          canvas: [
+            {
+              type: 'line',
+              x1: 0,
+              y1: 0,
+              x2: 515, // largura da página menos margens
+              y2: 0,
+              lineWidth: 1,
+              lineColor: '#000000',
+            },
+          ],
+          margin: [0, 10],
+        };
       default:
         return {
           text: `${fieldTitle}: ${fieldValue}`,
@@ -111,30 +165,33 @@ function processFields(fields: Field[], fieldValues: { [key: string]: any }) {
 }
 
 // Função para processar uma única imagem
-async function processImage(image: Image) {
+// Função para processar uma única imagem
+async function processImage(image: any) {
   const base64Image = await convertImageToBase64(image.url);
   if (base64Image) {
-    return [
-      {
-        image: base64Image,
-        width: 178.5,
-        alignment: 'center',
-        margin: [0, 5],
-      },
-      {
-        text: image.caption || "Sem legenda",
-        alignment: 'center',
-        fontSize: 10,
-        margin: [0, 5, 0, 10],
-      },
-    ];
+    return {
+      stack: [
+        {
+          image: base64Image,
+          width: 178.5,
+          alignment: 'center',
+          margin: [0, 5],
+        },
+        {
+          text: image.caption || "Sem legenda",
+          alignment: 'center',
+          fontSize: 10,
+          margin: [0, 5, 0, 10],
+        },
+      ],
+    };
   } else {
     return {
       text: "Imagem não pôde ser carregada",
       italics: true,
       color: 'red',
       margin: [0, 5, 0, 10],
-      alignment: 'center',
+      alignment: 'left',
     };
   }
 }
@@ -210,22 +267,31 @@ async function generateUpLayout(fields: Field[], images: Image[], fieldValues: {
 }
 
 // Função para gerar as linhas de imagens para DOWN e UP
-async function generateImagesRows(images: Image[]) {
+// Função para gerar as linhas de imagens para DOWN e UP
+// Função para gerar as linhas de imagens para DOWN e UP
+async function generateImagesRows(images: any) {
   const imageRows = splitImagesIntoRows(images, 3);
   const rowsContent = [];
 
-  for (let i = 0; i < imageRows.length; i++) {
-    const row = imageRows[i];
+  for (const row of imageRows) {
     const processedRow = await Promise.all(row.map(image => processImage(image)));
+
+    // Adiciona colunas vazias se a linha tiver menos de 3 imagens
+    while (processedRow.length < 3) {
+      //@ts-ignore
+      processedRow.push({ text: '', width: 178.5 });
+    }
+
     rowsContent.push({
       columns: processedRow,
-      columnGap: 20,
+      columnGap: 5,
       margin: [0, 10],
     });
   }
 
   return rowsContent;
 }
+
 
 // Função para dividir imagens em linhas
 function splitImagesIntoRows(images: Image[], imagesPerRow: number) {
