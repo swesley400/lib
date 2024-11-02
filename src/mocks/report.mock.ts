@@ -70,7 +70,7 @@ export const mockReport: Report = {
         name: "Recomendações",
       },
     ],
-    layout: "LEFT",
+    layout: "RIGHT",
     images: [
       {
         url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",

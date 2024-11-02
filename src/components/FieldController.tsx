@@ -24,7 +24,36 @@ export const FieldController: React.FC<IFieldControllerInterface> = (props) => {
     return (
       <div>
         {props.type === 'CheckBox' ? (
-          `${fieldLabel}: ${value ? '[x]' : '[ ]'}`
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>{fieldLabel}:</span>
+            <div style={{
+              width: '12px',
+              height: '12px',
+              border: '1px solid #4A90E2',
+              borderRadius: '2px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: value ? '#4A90E2' : '#E6F2FA'
+            }}>
+              {value && (
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <polyline
+                    points="2,6 5,9 10,2"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    fill="none"
+                  />
+                </svg>
+              )}
+            </div>
+          </div>
         ) : props.type === 'Text' ? (
           <div>
             <strong>{fieldLabel}:</strong>
