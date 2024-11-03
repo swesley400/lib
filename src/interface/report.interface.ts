@@ -15,6 +15,17 @@ export interface Report {
       justify: string
       contextHtml: string
     };
+    subHeader?: {
+      examTitle: string,
+      subHeaderFields:  Array<{
+        [key: string]: {
+          isActive: boolean,
+          fieldName: string,
+          value?: string,
+          type: any
+        }
+      }>
+    };
     body: {
       layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
       fields: Array<{
