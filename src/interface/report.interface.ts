@@ -29,7 +29,7 @@ export interface Report {
     body: {
       layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
       fields: Array<{
-        type: "Text" | "Number" | "Date" | "Label" | "Chebock"|string;
+        type: "Text" | "Number" | "Date" | "Label" | "CheckBox"| "Line";
         name: string;
         value?: string | number | Date | boolean; 
         placeholder?: string; 

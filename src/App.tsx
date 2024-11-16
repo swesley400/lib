@@ -4,6 +4,7 @@ import PDFDocumentBuilder from 'lib/printer/PDFDocumentBuilder';
 import { ImageUploadComponent } from 'components/ImageUpload';
 import { IClinicaImage } from 'interface/clinicaImage.interface';
 import { FieldController } from 'components/FieldController';
+import TemplatePreview from 'components/TemplatePreview';
 
 function App() {
 
@@ -21,8 +22,9 @@ function App() {
 
   return (
     <> 
+      <TemplatePreview onSave={(report: any) => {console.log(report)}}></TemplatePreview>
       {/* Exemplos de uso de nossos components */}
-      <EditorWithTables clinicImages={clinicaImages} />      
+      {/* <EditorWithTables clinicImages={clinicaImages} />       */}
       <PDFDocumentBuilder></PDFDocumentBuilder>
       {/* <ImageUploadComponent onSave={(base64) => { return base64}}/>   */}
       {/* <FieldController key={1} label={"Teste"}  name={"TEste"} initialValue={"Teste"} type={"Text"} isPrint={false}/>

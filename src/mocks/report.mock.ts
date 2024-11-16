@@ -113,6 +113,21 @@ export const mockReport: Report = {
         altText: "Gráfico de Análise",
         caption: "Gráfico demonstrando a gravidade das alterações encontradas",
       },
+      {
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
+        altText: "Gráfico de Análise",
+        caption: "Gráfico demonstrando a gravidade das alterações encontradas",
+      },
+      {
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
+        altText: "Gráfico de Análise",
+        caption: "Gráfico demonstrando a gravidade das alterações encontradas",
+      },
+      {
+        url: "https://wes-videos.s3.us-east-2.amazonaws.com/estomago.jpg",
+        altText: "Gráfico de Análise",
+        caption: "Gráfico demonstrando a gravidade das alterações encontradas",
+      }
     ],
   },
   footer: {
@@ -123,9 +138,9 @@ export const mockReport: Report = {
         "width": 100,
         "height": 100
     },
-    "align": "left",
+    "align": "center",
     "justify": "center",
-    "textSize": 10,
+    "textSize": 12,
     "contextHtml": "<div class=\"preview-container\">\n      <div class=\"header\" style=\"\n      text-align: left;  /* Alinhamento geral do container */\n      display: flex;\n      flex-direction: row;\n      align-items: flex-start;\n      justify-content: left; /* Justificação do texto */\n      gap: 10px;\n    \">\n        <div style=\"display: flex; flex-direction: row-reverse;\"><img src=\"\" alt=\"Imagem\" style=\"width: 100px; height: 100px; margin: 0 10px; display: none;\"><div><p>Rua Brazil, Q 11 L6 Casa 3 Senador Canedo</p><p>Cep: 75251473 | 62 992295634</p></div></div>\n        \n      </div>\n    </div>"
-}
+  }
 };

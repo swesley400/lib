@@ -1,10 +1,54 @@
 import { Report } from "interface/report.interface";
 import htmlToPdfMake from 'html-to-pdfmake';
 
-export function ReportFooter({ report }: { report: Report }) {
+export function ReportFooter({ report, medico = "Medico Sample" }: any) {
+  const { editorHtml, imageOptions, textSize, align, justify } = report.footer;
+
+  // Obtendo a data e hora atual formatada
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.toLocaleDateString("pt-BR")} às ${currentDate.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}`;
+
   return (
-    <footer className="footer">
-      <div dangerouslySetInnerHTML={{ __html: report.footer.contextHtml }} />
+    <footer
+      className="footer"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: align === "center" ? "center" : "flex-start",
+        justifyContent: justify,
+        gap: "10px",
+        fontSize: `${textSize}px`,
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: imageOptions.layout === "UP" || imageOptions.layout === "DOWN" ? "column" : "row",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        {imageOptions.url && (
+          <img
+            src={imageOptions.url}
+            alt={imageOptions.altText || "Footer Image"}
+            style={{
+              width: `${typeof imageOptions.width === "number" ? imageOptions.width : parseInt(imageOptions.width)}px`,
+              height: `${typeof imageOptions.height === "number" ? imageOptions.height : parseInt(imageOptions.height)}px`,
+              objectFit: "contain",
+              margin: imageOptions.layout === "RIGHT" ? "0 0 0 auto" : "0 auto 0 0",
+            }}
+          />
+        )}
+        <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
+      </div>
+      <p style={{ fontSize: "12px", textAlign: align, marginTop: "20px" }}>
+        Laudo assinado eletronicamente pelo <strong>{medico}</strong> dia <strong>{formattedDate}</strong>
+      </p>
     </footer>
   );
 }

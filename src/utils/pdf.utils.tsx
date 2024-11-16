@@ -73,7 +73,7 @@ export function calculatePages(container: HTMLDivElement): JSX.Element[] {
       );
 
       pages.push(
-        <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
+        // <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
       );
 
       currentPageContent = document.createElement('div');
@@ -115,7 +115,7 @@ export function calculatePages(container: HTMLDivElement): JSX.Element[] {
     );
 
     pages.push(
-      <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
+      // <ReportPage key={pages.length} report={mockReport} content={[reactElement] as any} />
     );
   }
 

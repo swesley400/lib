@@ -7,6 +7,7 @@ interface IFieldControllerInterface {
   label?: string;
   initialValue?: string;
   isPrint?: boolean;
+  isDisabled?: boolean; // Nova prop para desabilitar o campo
   onChange?: (value: any) => void;
 }
 
@@ -61,7 +62,7 @@ export const FieldController: React.FC<IFieldControllerInterface> = (props) => {
           </div>
         ) : props.type === 'Label' ? (
           <div>
-            <strong>{fieldLabel}</strong> {/* Exibe apenas o label como título */}
+            <strong>{fieldLabel}</strong>
           </div>
         ) : (
           <hr />
@@ -74,24 +75,29 @@ export const FieldController: React.FC<IFieldControllerInterface> = (props) => {
     <div>
       {props.type === 'CheckBox' ? (
         <label>
+          <strong>{fieldLabel}</strong>
           <input 
             type="checkbox" 
             checked={!!value} 
             onChange={(e) => handleChange(e.target.checked)} 
+            disabled={props.isDisabled} // Desabilita o checkbox se isDisabled for verdadeiro
           />
-          <strong>{fieldLabel}:</strong>
         </label>
       ) : props.type === 'Text' ? (
         <div>
           <label>
             <strong>{fieldLabel}:</strong>
           </label>
-          <TinyMCEEditor initialValue={value} onEditorChange={(content: any) => handleChange(content)} />
+          <TinyMCEEditor 
+            initialValue={value} 
+            onEditorChange={(content: any) => handleChange(content)} 
+            disabled={props.isDisabled} // Desabilita o editor se isDisabled for verdadeiro
+          />
         </div>
       ) : props.type === 'Line' ? (
         <hr />
       ) : props.type === 'Label' ? (
-        <strong>{fieldLabel}</strong> // Exibe apenas o label em modo de edição
+        <strong>{fieldLabel}</strong>
       ) : (
         <span>{fieldLabel}</span>
       )}
