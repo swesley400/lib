@@ -46,7 +46,7 @@ export function ReportFooter({ report, medico = "Medico Sample" }: any) {
         )}
         <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
       </div>
-      <p style={{ fontSize: "12px", textAlign: align, marginTop: "20px" }}>
+      <p style={{ fontSize: "12px", textAlign: align, marginTop: "20px" , color: 'gray'}}>
         Laudo assinado eletronicamente pelo <strong>{medico}</strong> dia <strong>{formattedDate}</strong>
       </p>
     </footer>
