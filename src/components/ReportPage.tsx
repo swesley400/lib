@@ -1,22 +1,27 @@
-import React from 'react';
+// components/ReportPage.tsx
 import { Report } from 'interface/report.interface';
 import { ReportHeader } from './ReportHeader';
+import { ReportBody } from './ReportBody';
 import { ReportFooter } from './ReportFooter';
 import { ExamData } from './ExamData';
-interface ReportPageProps {
-  report: Report;
-  content: JSX.Element[];
-}
+import 'styles/pdf.css'
 
-export const ReportPage: React.FC<ReportPageProps> = ({ report, content }) => {
+export function ReportPage({ report, isPrint, fieldValues, updateFieldValue, isDisabled = false }: { report: Report, isPrint: boolean, fieldValues: any, updateFieldValue: any, isDisabled?: any }) {
   return (
     <div className="page">
-      <ReportHeader report={report} />
-      <ExamData fields={report.header.subheaderFields} />
-      <div className="body-paper">
-        {content}
+      {
+        report?.header ? <div className="header"> <ReportHeader report={report} />  <ExamData fields={report.header.subheaderFields} /></div> : ""
+
+      }
+
+      <div>
+        <ReportBody isPrint={isPrint} report={report} fieldValues={fieldValues as any} updateFieldValue={updateFieldValue} isDisabled={isDisabled}></ReportBody>
       </div>
-      <ReportFooter report={report} />
+
+      { 
+        report?.footer ? <div className="footer"><ReportFooter report={report} /> </div> : ""
+      }
+     
     </div>
   );
 };

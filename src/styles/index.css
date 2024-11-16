@@ -1,6 +1,23 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
+
+
+/* Evita quebras de página dentro desses elementos */
+.avoid-page-break {
+  page-break-inside: avoid;
+}
+
+/* Força uma quebra de página antes do elemento */
+.page-break-before {
+  page-break-before: always;
+}
+
+/* Força uma quebra de página após o elemento */
+.page-break-after {
+  page-break-after: always;
+}
+
 
 body {
   margin: 0;

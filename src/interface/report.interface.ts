@@ -10,38 +10,63 @@ export interface IExamDataProps {
 
 export interface Report {
     header: {
-      html: string;
-      img?: {
+      editorHtml: string,
+      html?: string;
+      imageOptions: {
         url: string;
         layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
+        width: string | number;
+        height: string | number;
         altText?: string;  
         caption?: string;
       };
+      textSize: number,
+      align: string
+      justify: string
+      contextHtml: string
       subheaderFields: ISubheaderField[];
     };
+    subHeader?: {
+      examTitle: string,
+      subHeaderFields:  Array<{
+        [key: string]: {
+          isActive: boolean,
+          fieldName: string,
+          value?: string,
+          type: any
+        }
+      }>
+    };
     body: {
+      layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
       fields: Array<{
-        type: "text" | "number" | "date" | string;
+        type: "Text" | "Number" | "Date" | "Label" | "CheckBox"| "Line";
         name: string;
-        value?: string | number | Date; 
+        value?: string | number | Date | boolean; 
         placeholder?: string; 
         required?: boolean;   
       }>;
       images: Array<{
         url: string;
-        layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
         altText?: string;
         caption?: string;
       }>;
     };
     footer: {
-      html: string;
-      img?: {
+      editorHtml: string,
+      html?: string;
+      imageOptions: {
         url: string;
-        layout?: "RIGHT" | "LEFT" | "UP" | "DOWN";
-        altText?: string;
+        layout: "RIGHT" | "LEFT" | "UP" | "DOWN";
+        width: string | number;
+        height:string | number;
+        altText?: string;  
         caption?: string;
       };
+      textSize: number,
+      align: string
+      justify: string
+      contextHtml: string
     };
 }
   
