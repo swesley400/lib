@@ -1,15 +1,17 @@
 // components/ReportPage.tsx
 import { Report } from 'interface/report.interface';
-import { ReportFooter } from './ReportFooter';
 import { ReportHeader } from './ReportHeader';
 import { ReportBody } from './ReportBody';
+import { ReportFooter } from './ReportFooter';
+import { ExamData } from './ExamData';
 import 'styles/pdf.css'
 
 export function ReportPage({ report, isPrint, fieldValues, updateFieldValue, isDisabled = false }: { report: Report, isPrint: boolean, fieldValues: any, updateFieldValue: any, isDisabled?: any }) {
   return (
     <div className="page">
       {
-        report?.header ? <div className="header"> <ReportHeader report={report} /> </div> : ""
+        report?.header ? <div className="header"> <ReportHeader report={report} />  <ExamData fields={report.header.subheaderFields} /></div> : ""
+
       }
 
       <div>
@@ -22,4 +24,4 @@ export function ReportPage({ report, isPrint, fieldValues, updateFieldValue, isD
      
     </div>
   );
-}
+};
