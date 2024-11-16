@@ -3,14 +3,39 @@ import { Report } from 'interface/report.interface';
 import htmlToPdfMake from 'html-to-pdfmake';
 import { convertImageToBase64 } from 'utils/pdf.utils';
 
-export const ReportHeader = forwardRef(({ report }: { report: Report }, ref) => {
+export const ReportHeader = forwardRef<HTMLDivElement, any>(({ report }, ref) => {
+  const { editorHtml, imageOptions, textSize, align, justify } = report.header;
+
   return (
-    <header className="header" ref={ref as any}>
-      <div dangerouslySetInnerHTML={{ __html: report.header.contextHtml }} />
+    <header
+      className="header"
+      ref={ref}
+      style={{
+        textAlign: align,
+        justifyContent: justify,
+        fontSize: `${textSize}px`,
+        display: "flex",
+        flexDirection: imageOptions.layout === "UP" || imageOptions.layout === "DOWN" ? "column" : "row",
+        alignItems: "center",
+        gap: "10px",
+      }}
+    >
+      {imageOptions.url && (
+        <img
+          src={imageOptions.url}
+          alt={imageOptions.altText || "Header Image"}
+          style={{
+            width: `${typeof imageOptions.width === "number" ? imageOptions.width : parseInt(imageOptions.width)}px`,
+            height: `${typeof imageOptions.height === "number" ? imageOptions.height : parseInt(imageOptions.height)}px`,
+            objectFit: "contain", // Garante que a imagem mantenha proporção.
+            display: "block", // Remove espaços brancos ao redor.
+          }}
+        />
+      )}
+      <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
     </header>
   );
 });
-
 
 export function getHeaderHeight(): number {
   const header = document.querySelector(".header");

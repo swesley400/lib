@@ -1,5 +1,3 @@
-// src/components/QuillEditor.tsx
-
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Importa o estilo do Quill
@@ -10,12 +8,13 @@ import 'quillFonts'; // Ajuste o caminho conforme a localização do arquivo qui
 interface IQuillEditorProps {
     initialValue: string; // O valor inicial deve ser uma string
     onEditorChange: (content: string) => void; // Chama esta função ao mudar o conteúdo
+    disabled?: boolean; // Nova prop para desabilitar o editor
 }
 
 const QuillEditor: React.FC<IQuillEditorProps> & {
     modules: object; // Define o tipo de modules
     formats: string[]; // Define o tipo de formats
-} = ({ initialValue, onEditorChange }) => {
+} = ({ initialValue, onEditorChange, disabled = false }) => {
     const [value, setValue] = useState<string>(initialValue); // Armazena o valor do editor
 
     useEffect(() => {
@@ -31,9 +30,11 @@ const QuillEditor: React.FC<IQuillEditorProps> & {
         <ReactQuill
             value={value}
             onChange={handleChange} // Atualiza o estado e chama a função de callback
-            modules={QuillEditor.modules} // Configurações do Quill
+            //@ts-ignore
+            modules={{ ...QuillEditor.modules, toolbar: disabled ? false : QuillEditor.modules.toolbar }} // Desabilita a toolbar se disabled for true
             formats={QuillEditor.formats} // Formatos suportados
-            style={{ minHeight: '300px', border: '1px solid #ddd', padding: '10px' }} // Estilos do editor
+            readOnly={disabled} // Define o editor como somente leitura se disabled for true
+            style={{ minHeight: '300px', border: '1px solid #ddd', padding: '10px', backgroundColor: disabled ? '#f5f5f5' : 'white' }} // Estilos do editor
         />
     );
 };
@@ -51,8 +52,6 @@ QuillEditor.modules = {
         ['clean'], // Limpar formatação
     ],
 };
-
-
 
 QuillEditor.formats = [
     'font',

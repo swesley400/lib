@@ -1,6 +1,6 @@
 // ReportBody.tsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Report } from 'interface/report.interface';
 import { FieldController } from 'components/FieldController';
 
@@ -9,9 +9,16 @@ interface ReportBodyProps {
   isPrint: boolean;
   fieldValues: { [key: string]: any };
   updateFieldValue: (fieldName: string, value: any) => void;
+  isDisabled?: boolean
 }
 
-export function ReportBody({ report, isPrint, fieldValues, updateFieldValue }: ReportBodyProps) {
+export function ReportBody({ report, isPrint, fieldValues, updateFieldValue, isDisabled = false }: ReportBodyProps) {
+  
+  useEffect(() => {
+    console.log("Atualizei");
+    console.log(fieldValues);
+  },[fieldValues, report])
+
   const { layout } = report.body;
 
   // Definição de estilos para os diferentes layouts
@@ -62,7 +69,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue }: R
   const containerStyles = getLayoutStyles(layout);
 
   return (
-    <div className="page" style={{ padding: '1rem', boxSizing: 'border-box' }}>
+    <div style={{ padding: '1rem', boxSizing: 'border-box' }}>
       {layout === "LEFT" || layout === "RIGHT" ? (
         <div style={containerStyles}>
           {layout === "LEFT" && (
@@ -75,6 +82,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue }: R
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
             style={{ flex: 1 }} // Ocupa o espaço restante
+            isDisabled={isDisabled}
           />
 
           {layout === "RIGHT" && (
@@ -89,6 +97,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue }: R
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
             style={{ width: '100%' }}
+            isDisabled={isDisabled}
           />
           <ImagesGrid images={report.body.images} />
         </div>
@@ -101,6 +110,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue }: R
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
             style={{ width: '100%' }}
+            isDisabled={isDisabled}
           />
         </div>
       ) : null}
@@ -115,9 +125,12 @@ interface FieldsSectionProps {
   isPrint: boolean;
   updateFieldValue: (fieldName: string, value: any) => void;
   style?: React.CSSProperties;
+  isDisabled?: boolean
 }
 
-function FieldsSection({ fields, fieldValues, isPrint, updateFieldValue, style }: FieldsSectionProps) {
+function FieldsSection({ fields, fieldValues, isPrint, updateFieldValue, style, isDisabled = false }: FieldsSectionProps) {
+  console.log("entrei em fildes section", fields);
+
   return (
     <div className="fields-section" style={{ ...style, padding: '0.5rem' }}>
       {fields.map((field: any) => (
@@ -128,7 +141,8 @@ function FieldsSection({ fields, fieldValues, isPrint, updateFieldValue, style }
             label={field.label || field.name}
             initialValue={field.value}
             isPrint={isPrint}
-            onChange={(value: any) => updateFieldValue(field.name, value)}
+            onChange={(value: any) => updateFieldValue && updateFieldValue(field.name, value)}
+            isDisabled={isDisabled}
           />
         </div>
       ))}
