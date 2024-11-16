@@ -50,7 +50,22 @@ export const mockReport: Report = {
         type: "text",
         name: "Telefone",
         value: "62 992295634 / 62 3515-5634"
-      }
+      },
+      {
+        type: "text",
+        name: "Médico Examinador",
+        value: "Wesley Santos"
+      },
+      {
+        type: "text",
+        name: "Médico Solicitante",
+        value: "Luiza Santos"
+      },
+      {
+        type: "text",
+        name: "Dispositivo",
+        value: "Olympus CV 190"
+      },
     ]
   },
   body: {
