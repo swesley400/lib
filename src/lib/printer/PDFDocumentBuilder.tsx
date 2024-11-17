@@ -16,7 +16,7 @@ export default function PDFDocumentBuilder() {
 
   const [fieldValues, setFieldValues] = useState<{ [key: string]: any }>(
     mockReport.body.fields.reduce((acc: any, field: any) => {
-      acc[field.name] = field.initialValue || ""; // Valor inicial
+      acc[field.name] = field.initialValue || "";
       return acc;
     }, {})
   );
@@ -37,11 +37,11 @@ export default function PDFDocumentBuilder() {
 
   const generateA4 = () => {
     setIsPrint((prev) => !prev);
-
+    
     if (!isPrint) {
       setTimeout(async () => {
         const pdfDocDefinition = await ReportBodyPDFMake({report: mockReport, layout: mockReport.body.layout, fieldValues});
-        pdfMake.createPdf(pdfDocDefinition as any).download('Report.pdf');
+        pdfMake.createPdf({...pdfDocDefinition} as any).download('Report.pdf');
         setIsPrint((prev) => !prev);
       }, 1000);
     }

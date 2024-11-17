@@ -5,7 +5,6 @@ import htmlToPdfmake from 'html-to-pdfmake';
 import { convertImageToBase64 } from 'utils/pdf.utils';
 import ReactDOM from 'react-dom';
 import { ReportHeader, createPdfHeader } from 'components/ReportHeader';
-import html2canvas from 'html2canvas';
 import { createPdfFooter } from 'components/ReportFooter';
 
 // Interfaces para os tipos de dados
@@ -37,13 +36,9 @@ export async function ReportBodyPDFMake({
 }: ReportBodyPDFMakeProps) {
   const content: any[] = [];
 
-  // Adicionar Título
-  content.push(getTitleContent());
-
-  // Gerar Cabeçalho
   const header = await generateHeader(report);
 
-  // Gerar Rodapé
+  // content.push(combinedHeader);
   const footer = await generateFooter(report);
 
   // Processar conteúdo baseado no layout
@@ -66,16 +61,12 @@ export async function ReportBodyPDFMake({
 
   return {
     content,
-    styles: {
-      avoidPageBreak: { margin: [0, 10] },
-    },
     header,
     footer,
-    pageMargins: [40, 140, 40, 100], // Ajuste da margem superior
+    pageMargins: [40, 200, 40, 100], // Ajuste da margem superior
   };
 }
 
-// Função para obter o conteúdo do título
 function getTitleContent() {
   return {
     text: 'Endoscopia',
@@ -114,18 +105,18 @@ function processFields(fields: Field[], fieldValues: { [key: string]: any }) {
                 // Marca do checkbox (apenas se marcado)
                 ...(fieldValue
                   ? [
-                      {
-                        type: 'polyline',
-                        lineWidth: 1.5,
-                        closePath: false,
-                        points: [
-                          { x: 2, y: 6 },
-                          { x: 5, y: 9 },
-                          { x: 10, y: 2 },
-                        ],
-                        lineColor: '#FFFFFF',
-                      },
-                    ]
+                    {
+                      type: 'polyline',
+                      lineWidth: 1.5,
+                      closePath: false,
+                      points: [
+                        { x: 2, y: 6 },
+                        { x: 5, y: 9 },
+                        { x: 10, y: 2 },
+                      ],
+                      lineColor: '#FFFFFF',
+                    },
+                  ]
                   : []),
               ],
             },

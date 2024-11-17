@@ -24,10 +24,9 @@ export interface Report {
       align: string
       justify: string
       contextHtml: string
-      subheaderFields: ISubheaderField[];
+      subheaderFields?: { examTitle: string, headerFields: ISubheaderField[] };
     };
     subHeader?: {
-      examTitle: string,
       subHeaderFields:  Array<{
         [key: string]: {
           isActive: boolean,

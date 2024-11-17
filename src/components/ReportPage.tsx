@@ -10,18 +10,17 @@ export function ReportPage({ report, isPrint, fieldValues, updateFieldValue, isD
   return (
     <div className="page">
       {
-        report?.header ? <div className="header"> <ReportHeader report={report} />  <ExamData fields={report.header.subheaderFields} /></div> : ""
-
+        report?.header ? <div className="header"> <ReportHeader report={report} />  <ExamData fields={report.header?.subheaderFields || null} /></div> : ""
       }
 
       <div>
         <ReportBody isPrint={isPrint} report={report} fieldValues={fieldValues as any} updateFieldValue={updateFieldValue} isDisabled={isDisabled}></ReportBody>
       </div>
 
-      { 
+      {
         report?.footer ? <div className="footer"><ReportFooter report={report} /> </div> : ""
       }
-     
+
     </div>
   );
 };

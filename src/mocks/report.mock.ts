@@ -15,58 +15,66 @@ export const mockReport: Report = {
     textSize: 16,
     contextHtml:
       '<div class="preview-container">\n      <div class="header" style="\n      text-align: center;  /* Alinhamento geral do container */\n      display: flex;\n      flex-direction: row;\n      align-items: flex-start;\n      justify-content: left; /* Justificação do texto */\n      gap: 10px;\n    ">\n        <div style="display: flex;"><img src="https://img.freepik.com/vetores-gratis/n-design-de-logotipo-colorido-gradiente-inicial_343694-1755.jpg?t=st=1730042421~exp=1730046021~hmac=15968ae8311bc186d8f089b2f109382d8c14286dd5acd0ced8f22d76fbe7dee0&amp;w=1380" alt="Imagem" style="width: 200px; height: 200px; margin: 0 10px; display: ;"><div><h1 class="ql-align-center">Instituto de Medicina Canedo</h1><h4 class="ql-align-center"><span style="background-color: rgb(194, 133, 255);">A 15 nos fazendo seu exame com qualidade</span></h4></div></div>\n        \n      </div>\n    </div>',
-    subheaderFields: [
-      {
-        type: "text",
-        name: "Nome do Paciente",
-        value: "João da Silva"
-      },
-      {
-        type: "text",
-        name: "Data de Nascimento",
-        value: "1985-02-15"
-      },
-      {
-        type: "text",
-        name: "Sexo",
-        value: "Masculino"
-      },
-      {
-        type: "text",
-        name: "CPF",
-        value: "123.456.789-00"
-      },
-      {
-        type: "text",
-        name: "Endereço",
-        value: "Rua Brasil, Q 11, L6, Casa 3"
-      },
-      {
-        type: "text",
-        name: "CEP",
-        value: "75251-473"
-      },
-      {
-        type: "text",
-        name: "Telefone",
-        value: "62 992295634 / 62 3515-5634"
-      },
-      {
-        type: "text",
-        name: "Médico Examinador",
-        value: "Wesley Santos"
-      },
-      {
-        type: "text",
-        name: "Médico Solicitante",
-        value: "Luiza Santos"
-      },
-      {
-        type: "text",
-        name: "Dispositivo",
-        value: "Olympus CV 190"
-      },
-    ]
+    subheaderFields: {
+      examTitle: "Colonoscopia",
+      headerFields: [
+        {
+          type: "text",
+          name: "Nome do Paciente",
+          value: "João da Silva"
+        },
+        {
+          type: "text",
+          name: "Data de Nascimento",
+          value: "1985-02-15"
+        },
+        {
+          type: "text",
+          name: "Sexo",
+          value: "Masculino"
+        },
+        {
+          type: "text",
+          name: "CPF",
+          value: "123.456.789-00"
+        },
+        {
+          type: "text",
+          name: "Endereço",
+          value: "Rua Brasil, Q 11, L6, Casa 3"
+        },
+        {
+          type: "text",
+          name: "CEP",
+          value: "75251-473"
+        },
+        {
+          type: "text",
+          name: "Telefone",
+          value: "62 992295634 / 62 3515-5634"
+        },
+        {
+          type: "text",
+          name: "Médico Examinador",
+          value: "Wesley Santos"
+        },
+        {
+          type: "text",
+          name: "Médico Solicitante",
+          value: "Luiza Santos"
+        },
+        {
+          type: "text",
+          name: "Dispositivo",
+          value: "Olympus CV 190"
+        },
+        {
+          type: "date",
+          name: "Data do Exame",
+          value: new Date().toLocaleDateString()
+        },
+      ]
+    },
   },
   body: {
     fields: [
@@ -103,13 +111,6 @@ export const mockReport: Report = {
       },
       {
         type: "Text",
-        name: "Conclusão",
-        value: `
-          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
-        `,
-      },
-      {
-        type: "Text",
         name: "Recomendações",
         value: `
           1. **Tratamento**: Iniciar tratamento com inibidores da bomba de prótons (IBPs) para reduzir a acidez gástrica.
@@ -118,9 +119,16 @@ export const mockReport: Report = {
         `,
       },
       {
-        type: "Line",
-        name: "Recomendações",
+        type: "Text",
+        name: "Conclusão",
+        value: `
+          A endoscopia digestiva alta revelou alterações moderadas, com esofagite erosiva e gastrite superficial. Não foram encontradas lesões malignas ou úlceras graves. Recomenda-se acompanhamento com terapia medicamentosa para controle dos sintomas e revisão após 6 meses para reavaliação.
+        `,
       },
+      // {
+      //   type: "Line",
+      //   name: "Recomendações",
+      // },
     ],
     layout: "RIGHT",
     images: [
@@ -192,7 +200,7 @@ export const mockReport: Report = {
     },
     "align": "center",
     "justify": "center",
-    "textSize": 12,
+    "textSize": 10,
     "contextHtml": "<div class=\"preview-container\">\n      <div class=\"header\" style=\"\n      text-align: left;  /* Alinhamento geral do container */\n      display: flex;\n      flex-direction: row;\n      align-items: flex-start;\n      justify-content: left; /* Justificação do texto */\n      gap: 10px;\n    \">\n        <div style=\"display: flex; flex-direction: row-reverse;\"><img src=\"\" alt=\"Imagem\" style=\"width: 100px; height: 100px; margin: 0 10px; display: none;\"><div><p>Rua Brazil, Q 11 L6 Casa 3 Senador Canedo</p><p>Cep: 75251473 | 62 992295634</p></div></div>\n        \n      </div>\n    </div>"
   }
 };

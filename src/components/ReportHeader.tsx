@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import { Report } from 'interface/report.interface';
 import htmlToPdfMake from 'html-to-pdfmake';
 import { convertImageToBase64 } from 'utils/pdf.utils';
+import { generateExamDataPdf } from './ExamData';
 
 export const ReportHeader = forwardRef<HTMLDivElement, any>(({ report }, ref) => {
   const { editorHtml, imageOptions, textSize, align, justify } = report.header;
@@ -49,104 +50,114 @@ export async function createPdfHeader(headerConfig: Report["header"]) {
 
   const htmlContent = htmlToPdfMake(headerConfig.editorHtml);
 
-  // Converte a imagem para Base64 apenas se a URL for válida
   let base64Image: string | null = null;
 
   if (headerConfig.imageOptions.url && headerConfig.imageOptions.url !== "") {
     base64Image = await convertImageToBase64(headerConfig.imageOptions.url);
+    
+    debugger
+
 
     if (!base64Image) {
       console.warn("Imagem não encontrada ou falha na conversão para base64. Renderizando sem imagem.");
     }
   }
 
-  // Define a largura para texto e imagem com base na largura total da página
+  const subHeader = generateExamDataPdf(headerConfig.subheaderFields);
+  const subHeaderContent = subHeader.content || [];
+
+
+
   const textWidth = widthTotal * 0.7;
   const imageWidth = widthTotal * 0.3;
 
-  // Limita a altura da imagem ao valor fornecido em headerConfig ou ao máximo de 4 cm
   const imageHeight = Math.min(
     headerConfig.imageOptions.height ? Number(headerConfig.imageOptions.height) : maxHeaderHeight,
     maxHeaderHeight
   );
 
-  // Função para definir a posição do conteúdo com base no layout e presença da imagem
+  const convertPixelsToPoints = (pixels: number) => (pixels * 72) / 96; // Assumindo 96 dpi como padrão
+
   const defineContentPosition = () => {
-    // Define o elemento da imagem somente se base64Image existir
     const imageElement: { image: string; width: number; height: number; alignment: string } | null = base64Image
       ? {
-          image: base64Image,
-          width: imageWidth,
-          height: imageHeight,
-          alignment: 'center'
-        }
+        image: base64Image,
+        width: convertPixelsToPoints(imageWidth),
+        height: convertPixelsToPoints(imageHeight),
+        alignment: 'center',
+      }
       : null;
 
-    const adjustedMargin = [0, 5, 0, 5]; // Margem reduzida para aproximar a imagem do texto
-
     if (imageElement) {
-      // Com imagem
       switch (headerConfig.imageOptions.layout) {
         case "UP":
           return {
             stack: [
-              { ...imageElement, margin: [0, 0, 0, 5] }, // Imagem acima do texto
-              { stack: htmlContent, alignment: 'center' } // Texto centralizado horizontalmente
+              imageElement,
+              { stack: htmlContent, alignment: 'center', fontSize: headerConfig.textSize * 0.9 },
             ],
-            alignment: 'center'
+            alignment: 'center',
+            margin: [0, 5, 0, 5],
           };
         case "DOWN":
           return {
             stack: [
-              { stack: htmlContent, alignment: 'center' }, // Texto acima da imagem
-              { ...imageElement, margin: [0, 5, 0, 0] } // Imagem abaixo do texto
+              { stack: htmlContent, alignment: 'center', fontSize: headerConfig.textSize * 0.9 },
+              imageElement,
             ],
-            alignment: 'center'
+            alignment: 'center',
+            margin: [0, 5, 0, 5],
           };
         case "LEFT":
           return {
             columns: [
-              { ...imageElement, margin: adjustedMargin }, // Imagem à esquerda do texto
+              imageElement,
               {
-                stack: htmlContent,
-                width: textWidth,
+                stack: [
+                  { stack: htmlContent, alignment: 'center', fontSize: headerConfig.textSize * 0.9 },
+                ],
+                width: textWidth * 0.9,
                 alignment: 'center',
-                margin: [0, (imageHeight - 20) / 2, 0, 0] // Centralização vertical do texto em relação à imagem
-              }
+              },
             ],
-            alignment: headerConfig.justify
+            alignment: headerConfig.justify,
           };
         case "RIGHT":
           return {
             columns: [
               {
-                stack: htmlContent,
-                width: textWidth,
+                stack: [
+                  { stack: htmlContent, alignment: 'center', fontSize: headerConfig.textSize * 0.9 },
+                  ...subHeaderContent,
+                ],
+                width: textWidth * 0.9,
                 alignment: 'center',
-                margin: [0, (imageHeight - 20) / 2, 0, 0] // Centralização vertical do texto em relação à imagem
+                margin: [0, (imageHeight - 20) / 2, 0, 0],
               },
-              { ...imageElement, margin: adjustedMargin } // Imagem à direita do texto
+              imageElement,
             ],
-            alignment: headerConfig.justify
+            alignment: headerConfig.justify,
           };
         default:
-          return { stack: htmlContent };
+          return { stack: [...htmlContent, ...subHeaderContent], fontSize: headerConfig.textSize * 0.9 };
       }
     } else {
       return {
-        stack: htmlContent,
-        alignment: headerConfig.justify || 'center', // Alinha o texto conforme o valor de justify
-        margin: [0, (maxHeaderHeight - 20) / 2, 0, 0] // Centralização vertical em relação ao cabeçalho
+        stack: [...htmlContent, ...subHeaderContent],
+        alignment: headerConfig.justify || 'center',
+        fontSize: headerConfig.textSize * 0.9,
       };
     }
   };
 
   const headerPDFMake = {
-    margin: [20, 10, 20, 10],
     fontSize: headerConfig.textSize,
     stack: [
-      defineContentPosition()
-    ]
+      { ...defineContentPosition() },
+      subHeaderContent,
+    ],
+    margin: [40, 3, 40, 0],
+    // layout: 'noBorders'
   };
 
   console.log(headerPDFMake);

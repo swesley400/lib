@@ -4,7 +4,7 @@ import { ReportPage } from "components/ReportPage";
 import { mockReport } from "mocks/report.mock";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import React from 'react';
+import { v4 as uuid } from 'uuid'
 
 export function calculatePages(container: HTMLDivElement): JSX.Element[] {
   const result: JSX.Element[] = [];
@@ -163,7 +163,7 @@ export function handleGeneratePDF() {
 
 export async function convertImageToBase64(url: string): Promise<string | null> {
   try {
-    const response = await fetch(url);
+    const response = await fetch(url +"?v1=" + uuid());
 
     if (!response.ok) {
       console.error("Erro ao buscar a imagem:", response.statusText);
