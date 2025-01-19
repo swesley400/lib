@@ -1,4 +1,4 @@
-import './styles/app.css';
+import React from 'react';
 import EditorWithTables from 'lib/template/generateHeader';
 import PDFDocumentBuilder from 'lib/printer/PDFDocumentBuilder';
 import { ImageUploadComponent } from 'components/ImageUpload';
@@ -22,10 +22,10 @@ function App() {
 
   return (
     <> 
-      <TemplatePreview onSave={(report: any) => {console.log(report)}}></TemplatePreview>
+      {/* <TemplatePreview onSave={(report: any) => {console.log(report)}}></TemplatePreview> */}
       {/* Exemplos de uso de nossos components */}
       {/* <EditorWithTables clinicImages={clinicaImages} />       */}
-      <PDFDocumentBuilder></PDFDocumentBuilder>
+      {/* <PDFDocumentBuilder></PDFDocumentBuilder> */}
       {/* <ImageUploadComponent onSave={(base64) => { return base64}}/>   */}
       {/* <FieldController key={1} label={"Teste"}  name={"TEste"} initialValue={"Teste"} type={"Text"} isPrint={false}/>
       <FieldController key={1} label={"Teste"}  name={"TEste"} initialValue={"Teste"} type={"Label"} isPrint={false}/>

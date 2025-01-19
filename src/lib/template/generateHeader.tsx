@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ReactQuill from 'react-quill';
+import { IClinicaImage } from '../../interface/clinicaImage.interface';
 import 'react-quill/dist/quill.snow.css';
 import './styles.css';
-import { IClinicaImage } from 'interface/clinicaImage.interface';
 
 interface IImageOptions {
   url: string;

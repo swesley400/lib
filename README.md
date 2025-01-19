@@ -44,3 +44,101 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# @swesley400/report-lib
+
+A React library for creating and managing PDF reports with customizable templates and interactive previews.
+
+## Installation
+
+```bash
+npm install @swesley400/report-lib
+```
+
+## Features
+
+- PDF document generation with customizable templates
+- Interactive template preview with editable fields
+- Support for dynamic field values and updates
+- Base64 PDF output for flexible handling
+
+## Components
+
+### PDFDocumentBuilder
+
+A component for building and generating PDF documents from templates.
+
+```tsx
+import { PDFDocumentBuilder } from '@swesley400/report-lib';
+
+function MyComponent() {
+  const handleSave = (base64PDF: string) => {
+    // Handle the generated PDF
+  };
+
+  return (
+    <PDFDocumentBuilder
+      report={reportTemplate}
+      isPrint={false}
+      fieldValues={values}
+      updateFieldValue={handleFieldUpdate}
+      onSave={handleSave}
+    />
+  );
+}
+```
+
+### TemplatePreview
+
+A component for previewing and editing report templates.
+
+```tsx
+import { TemplatePreview } from '@swesley400/report-lib';
+
+function MyPreview() {
+  return (
+    <TemplatePreview
+      template={template}
+      fields={fields}
+      onFieldChange={handleFieldChange}
+    />
+  );
+}
+```
+
+## API Reference
+
+### PDFDocumentBuilder Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| report | ReportTemplate | The template configuration for the PDF |
+| isPrint | boolean | Whether the document is in print mode |
+| fieldValues | Record<string, any> | Values for template fields |
+| updateFieldValue | (field: string, value: any) => void | Callback for field updates |
+| onSave | (base64PDF: string) => void | Callback when PDF is generated |
+
+### TemplatePreview Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| template | Template | The template configuration |
+| fields | Field[] | Array of editable fields |
+| onFieldChange | (field: Field) => void | Callback for field changes |
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Build the library
+npm run build
+
+# Run tests
+npm test
+```
+
+## License
+
+MIT © [swesley400]

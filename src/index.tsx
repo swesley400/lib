@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/index.css';
 import App from './App';
+import './styles/index.css';
 import reportWebVitals from './reportWebVitals';
+
+export { default as PDFDocumentBuilder } from './lib/printer/PDFDocumentBuilder';
+export type { PDFDocumentBuilderProps } from './lib/printer/PDFDocumentBuilder';
+
+export { default as TemplatePreview } from './components/TemplatePreview';
+export type { TemplatePreviewProps, Field } from './components/TemplatePreview';
+
+export { default as PDFActions } from './components/PDFActions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,15 +1,32 @@
 import { useRef, useState, useEffect } from "react";
-import { mockReport } from "mocks/report.mock";
-import "../../styles/pdf.css";
-import { ReportBody, ReportBodyPDFMake } from "../../components/ReportBody";
-import { ReportPage } from "components/ReportPage";
-import { calculatePages } from "utils/pdf.utils";
+import { mockReport } from "../../mocks/report.mock";
+import { ReportBody } from "../../components/ReportBody";
+import { ReportPage } from "../../components/ReportPage";
+import PDFActions from "../../components/PDFActions";
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import "../../styles/pdf.css";
 
+// Initialize pdfMake with fonts
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.fonts = {
+  Roboto: {
+    normal: 'Roboto-Regular.ttf',
+    bold: 'Roboto-Medium.ttf',
+    italics: 'Roboto-Italic.ttf',
+    bolditalics: 'Roboto-MediumItalic.ttf'
+  }
+};
 
-export default function PDFDocumentBuilder() {
+export interface PDFDocumentBuilderProps {
+  report: any; // TODO: Add proper type for report
+  isPrint: boolean;
+  fieldValues?: any; // TODO: Add proper type for fieldValues
+  updateFieldValue?: (fieldName: string, value: any) => void;
+  onSave: (base64: string) => void;
+}
+
+const PDFDocumentBuilder: React.FC<PDFDocumentBuilderProps> = (props) => {
   const pageRef = useRef<HTMLDivElement>(null);
   const [isPrint, setIsPrint] = useState<boolean>(false);
   const [pages, setPages] = useState<JSX.Element[]>([]);
@@ -21,13 +38,6 @@ export default function PDFDocumentBuilder() {
     }, {})
   );
 
-  useEffect(() => {
-    if (pageRef.current) {
-      const generatedPages = calculatePages(pageRef.current);
-      setPages(generatedPages);
-    }
-  }, [isPrint]);
-
   const updateFieldValue = (fieldName: string, value: any) => {
     setFieldValues(prevValues => ({
       ...prevValues,
@@ -35,34 +45,24 @@ export default function PDFDocumentBuilder() {
     }));
   };
 
-  const generateA4 = () => {
-    setIsPrint((prev) => !prev);
-    
-    if (!isPrint) {
-      setTimeout(async () => {
-        const pdfDocDefinition = await ReportBodyPDFMake({report: mockReport, layout: mockReport.body.layout, fieldValues});
-        pdfMake.createPdf({...pdfDocDefinition} as any).download('Report.pdf');
-        setIsPrint((prev) => !prev);
-      }, 1000);
-    }
-  };
-
   return (
-    <div className="flex w-full justify-center">
+    <>
       <div className="m-1">
-        <button onClick={generateA4} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1">
-          Generate PDF
-        </button>
+        <PDFActions
+          report={props.report || mockReport}
+          layout={props.report?.body.layout || mockReport.body.layout}
+          fieldValues={props.fieldValues || fieldValues}
+          className="mb-4"
+        />
       </div>
-
-      <div ref={pageRef}>
-          <ReportPage 
-            report={mockReport} 
-            isPrint={isPrint} 
-            fieldValues={fieldValues as any} 
-            updateFieldValue={updateFieldValue} 
-          />
-      </div>
-    </div>
+      <ReportPage 
+        report={props.report} 
+        isPrint={props.isPrint} 
+        fieldValues={props.fieldValues} 
+        updateFieldValue={props.updateFieldValue} 
+      />
+    </>
   );
 }
+
+export default PDFDocumentBuilder;

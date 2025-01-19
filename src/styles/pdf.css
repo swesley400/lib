@@ -29,6 +29,47 @@
   page-break-after: always;
 }
 
+.pdf-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pdf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
+}
+
+.pdf-header img {
+  max-width: 150px;
+  height: auto;
+}
+
+.pdf-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.pdf-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.pdf-footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
 
 @media print {
   body {
