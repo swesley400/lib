@@ -10,6 +10,8 @@ export type { PDFDocumentBuilderProps } from './lib/printer/PDFDocumentBuilder';
 export { default as TemplatePreview } from './components/TemplatePreview';
 export type { TemplatePreviewProps, Field } from './components/TemplatePreview';
 
+export { default as EditorWithTables } from './lib/template/generateHeader';
+
 export { default as PDFActions } from './components/PDFActions';
 
 const root = ReactDOM.createRoot(
