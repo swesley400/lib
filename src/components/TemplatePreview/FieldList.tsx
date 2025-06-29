@@ -1,16 +1,22 @@
 import React from "react";
-import { FiEdit, FiTrash } from "react-icons/fi";
+import { FiEdit, FiTrash, FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 type Field = {
+  id?: string;
   type: string;
   name: string;
+  order?: number;
 };
 
 interface FieldListProps {
   fields: Field[];
+  onEditField?: (id: string) => void;
+  onRemoveField?: (id: string) => void;
+  onMoveUp?: (id: string) => void;
+  onMoveDown?: (id: string) => void;
 }
 
-const FieldList: React.FC<FieldListProps> = ({ fields }) => {
+const FieldList: React.FC<FieldListProps> = ({ fields, onEditField, onRemoveField, onMoveUp, onMoveDown }) => {
   return (
     <div className="mt-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">
@@ -33,14 +39,32 @@ const FieldList: React.FC<FieldListProps> = ({ fields }) => {
             </div>
             <div className="flex items-center gap-2">
               <button
+                className="p-2 text-gray-500 hover:text-green-600 transition-colors"
+                aria-label="Move field up"
+                onClick={() => field.id && onMoveUp && onMoveUp(field.id)}
+                disabled={index === 0}
+              >
+                <FiArrowUp className={index === 0 ? "opacity-50" : ""} />
+              </button>
+              <button
+                className="p-2 text-gray-500 hover:text-green-600 transition-colors"
+                aria-label="Move field down"
+                onClick={() => field.id && onMoveDown && onMoveDown(field.id)}
+                disabled={index === fields.length - 1}
+              >
+                <FiArrowDown className={index === fields.length - 1 ? "opacity-50" : ""} />
+              </button>
+              <button
                 className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
                 aria-label="Edit field"
+                onClick={() => field.id && onEditField && onEditField(field.id)}
               >
                 <FiEdit />
               </button>
               <button
                 className="p-2 text-gray-500 hover:text-red-600 transition-colors"
                 aria-label="Delete field"
+                onClick={() => field.id && onRemoveField && onRemoveField(field.id)}
               >
                 <FiTrash />
               </button>

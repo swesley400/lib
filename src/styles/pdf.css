@@ -4,6 +4,9 @@
 .classA4 {
   width: 210mm;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Controlar quebras de página */
