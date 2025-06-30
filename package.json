@@ -1,6 +1,6 @@
 {
   "name": "@swesley400/report-lib",
-  "version": "0.1.11.5",
+  "version": "0.1.11.6",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
