@@ -77,7 +77,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue, isD
           )}
           
           <FieldsSection 
-            fields={report.body.fields} 
+            fields={Array.isArray(fieldValues) ? fieldValues : report.body.fields} 
             fieldValues={fieldValues} 
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
@@ -92,7 +92,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue, isD
       ) : layout === "DOWN" ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <FieldsSection 
-            fields={report.body.fields} 
+            fields={Array.isArray(fieldValues) ? fieldValues : report.body.fields} 
             fieldValues={fieldValues} 
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
@@ -105,7 +105,7 @@ export function ReportBody({ report, isPrint, fieldValues, updateFieldValue, isD
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <ImagesGrid images={report.body.images} />
           <FieldsSection 
-            fields={report.body.fields} 
+            fields={Array.isArray(fieldValues) ? fieldValues : report.body.fields} 
             fieldValues={fieldValues} 
             isPrint={isPrint} 
             updateFieldValue={updateFieldValue} 
